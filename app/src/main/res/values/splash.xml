@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- System Splash -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+
+        <item name="windowSplashScreenBackground">@color/system_splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/menu_icon</item>
+        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/menu_logo_text</item>
+
+
+        <item name="postSplashScreenTheme">@style/Theme.MenuTest</item>
+    </style>
+
+</resources>
