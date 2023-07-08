@@ -7,8 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="background">#FFFFFFFF</color>
 
     <!-- Spash Screen -->
     <color name="system_splash_background">#ffffff</color>
 
+    <!-- Login screen -->
+    <color name="title_text">#FF000000</color>
+    <color name="login_btn_background">#e16b48</color>
+    <color name="login_btn_text">#FFFFFFFF</color>
+
+    <color name="login_input_text">#FF000000</color>
+    <color name="login_input_tint">#CCCBCB</color>
+
+    <!--<color name="input_field_tint">#673AB7</color> &lt;!&ndash; e3e3e3 &ndash;&gt;-->
 </resources>

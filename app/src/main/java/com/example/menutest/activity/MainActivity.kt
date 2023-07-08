@@ -1,6 +1,7 @@
 package com.example.menutest.activity
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
 
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 
     // Splash screen

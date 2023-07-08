@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginScreenFragment">
+
+    <fragment
+        android:id="@+id/loginScreenFragment"
+        android:name="com.example.menutest.screens.login.LoginScreenFragment"
+        android:label="LoginScreenFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginScreenFragment_to_venuesListScreenFragment"
+            app:destination="@id/venuesListScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/venuesListScreenFragment"
+        android:name="com.example.menutest.screens.venues_list.VenuesListScreenFragment"
+        android:label="VenuesListScreenFragment"
+        tools:layout="@layout/fragment_venues_list">
+        <action
+            android:id="@+id/action_venuesListScreenFragment_to_detailsScreenFragment"
+            app:destination="@id/detailsScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsScreenFragment"
+        android:name="com.example.menutest.screens.details.DetailsScreenFragment"
+        android:label="DetailsScreenFragment"
+        tools:layout="@layout/fragment_details"/>
+
+</navigation>

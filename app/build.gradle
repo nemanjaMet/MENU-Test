@@ -93,4 +93,10 @@ dependencies {
     // splash screen
     implementation 'androidx.core:core-splashscreen:1.0.1'
 
+    // modul iz kojeg dobijamo podatke
+    implementation project(':data')
+
+    // Retrofit with Moshi Converter
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
 }
