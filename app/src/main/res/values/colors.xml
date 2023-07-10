@@ -10,6 +10,7 @@
     <color name="transparent">#00FFFFFF</color>
 
     <color name="background">#FFFFFFFF</color>
+    <color name="loading_background">#4D000000</color>
 
     <!-- Spash Screen -->
     <color name="system_splash_background">#ffffff</color>
@@ -21,6 +22,9 @@
 
     <color name="login_input_text">#FF000000</color>
     <color name="login_input_tint">#CCCBCB</color>
+
+    <!-- Venues List Screen -->
+    <color name="venue_item_text">#FF000000</color>
 
     <!--<color name="input_field_tint">#673AB7</color> &lt;!&ndash; e3e3e3 &ndash;&gt;-->
 </resources>

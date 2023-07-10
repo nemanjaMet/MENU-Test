@@ -9,12 +9,22 @@ import com.example.menutest.screens.MasterScreenFragment
 
 class DetailsScreenFragment : MasterScreenFragment() {
 
+    private var venuePosition = -1
+
     companion object {
         private const val LOG_TAG = "DetailsScreenFragment"
     }
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            venuePosition = DetailsScreenFragmentArgs.fromBundle(it).venuePosition
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +37,7 @@ class DetailsScreenFragment : MasterScreenFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
     }
 

@@ -2,7 +2,10 @@ package com.example.menutest.screens.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.menutest.models.SignInStatus
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -19,10 +22,14 @@ class LoginViewModel : ViewModel() {
     fun signIn(email: String, password: String) {
         signInStatus.value = SignInStatus.IN_PROGRESS
 
-        if (isEmailCorrect(email) && isPasswordCorrect(password)) {
-            signInStatus.value = SignInStatus.SUCCESS
-        } else {
-            signInStatus.value = SignInStatus.FAILED
+        viewModelScope.launch {
+            delay(2000)
+
+            if (isEmailCorrect(email) && isPasswordCorrect(password)) {
+                signInStatus.value = SignInStatus.SUCCESS
+            } else {
+                signInStatus.value = SignInStatus.FAILED
+            }
         }
 
     }

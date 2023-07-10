@@ -29,6 +29,12 @@
         android:id="@+id/detailsScreenFragment"
         android:name="com.example.menutest.screens.details.DetailsScreenFragment"
         android:label="DetailsScreenFragment"
-        tools:layout="@layout/fragment_details"/>
+        tools:layout="@layout/fragment_details" >
+
+        <argument
+            android:name="venuePosition"
+            app:argType="integer"/>
+
+    </fragment>
 
 </navigation>
