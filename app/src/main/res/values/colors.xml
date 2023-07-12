@@ -26,5 +26,16 @@
     <!-- Venues List Screen -->
     <color name="venue_item_text">#FF000000</color>
 
-    <!--<color name="input_field_tint">#673AB7</color> &lt;!&ndash; e3e3e3 &ndash;&gt;-->
+   <!-- Details Screen -->
+    <color name="food_name_details">#FFFFFFFF</color>
+    <color name="venue_details">#FF000000</color>
+    <color name="logout_btn_text">#FF000000</color>
+    <color name="logout_btn_background">#FFFFFFFF</color>
+
+    <!-- Snackbar message colors -->
+    <color name="snackbar_text">#FFFFFFFF</color>
+    <color name="snackbar_bg">#ACACAC</color>
+    <color name="snackbar_error_text">#FFFFFFFF</color>
+    <color name="snackbar_error_bg">#D52727</color>
+
 </resources>

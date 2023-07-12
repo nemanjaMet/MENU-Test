@@ -13,6 +13,7 @@ import com.example.menutest.adapters.VenuesAdapter
 import com.example.menutest.databinding.FragmentVenuesListBinding
 import com.example.menutest.screens.MasterScreenFragment
 import com.example.menutest.shared_view_models.SharedViewModel
+import com.example.view_model.DataViewModel
 
 class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAdapterInterface {
 
@@ -23,7 +24,8 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     private var _binding: FragmentVenuesListBinding? = null
     private val binding get() = _binding
 
-    val sharedViewModel: SharedViewModel by activityViewModels()
+    //val sharedViewModel: SharedViewModel by activityViewModels()
+    val dataViewModel: DataViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +43,7 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     }
 
     private fun setVenuesList() {
-        val venuesAdapter = VenuesAdapter(requireContext(), sharedViewModel.getListOfVenues(), this)
+        val venuesAdapter = VenuesAdapter(requireContext(), dataViewModel.getListOfVenues(), this)
 
         binding?.apply {
             rvVenuesList.adapter = venuesAdapter
@@ -59,6 +61,12 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     private fun openDetailsScreen(position: Int) {
         val action = VenuesListScreenFragmentDirections.actionVenuesListScreenFragmentToDetailsScreenFragment(position)
         findNavController().navigate(action)
+    }
+
+    override fun onBackPressed() {
+
+        activity?.finish()
+
     }
 
 }

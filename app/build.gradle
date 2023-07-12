@@ -61,6 +61,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
+    // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
 
     // Compose
@@ -81,10 +82,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // ViewModel and LiveData
-//    def viewmodel_livedata_version = "2.6.1"
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewmodel_livedata_version"
-//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_livedata_version"
-//    implementation 'android.arch.lifecycle:extensions:1.1.1'
+  /*  def viewmodel_livedata_version = "2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewmodel_livedata_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_livedata_version"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'*/
 
     // Navigation
     def nav_version = "2.6.0"
@@ -98,6 +99,11 @@ dependencies {
     implementation project(':data')
 
     // Retrofit with Moshi Converter
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    //implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
 }

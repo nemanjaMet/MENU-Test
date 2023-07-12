@@ -136,7 +136,7 @@
         app:layout_constraintRight_toRightOf="@id/gl_right_of_content"
         app:layout_constraintTop_toBottomOf="@id/til_password"
         android:layout_marginTop="50dp"
-        android:background="@drawable/button_round_corners"
+        android:background="@drawable/button_signin_bacground"
         android:textColor="@color/login_btn_text"
         android:text="@string/sign_in"
         android:textAllCaps="false"

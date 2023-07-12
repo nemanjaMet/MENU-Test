@@ -10,4 +10,7 @@
 
     <string name="closed">Closed</string>
 
+    <!-- Details screen -->
+    <string name="logout">Logout</string>
+
 </resources>

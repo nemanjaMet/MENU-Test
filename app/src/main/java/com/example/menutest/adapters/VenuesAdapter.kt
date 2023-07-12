@@ -47,7 +47,6 @@ class VenuesAdapter(private val context: Context, private val venues: ArrayList<
             clHolder.setOnClickListener {
                 it.setOnClickListener(null)
                 listener?.onVenueClick(position)
-                Toast.makeText(context, "Click $position", Toast.LENGTH_SHORT).show()
             }
 
         }

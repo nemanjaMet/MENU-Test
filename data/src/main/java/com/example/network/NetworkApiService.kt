@@ -2,6 +2,7 @@ package com.example.network
 
 import com.example.data.LoginRequest
 import com.example.data.Venue
+import com.example.server.MockWebServerManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Call
@@ -18,7 +19,8 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Url
 
-private const val BASE_URL = "https://api-playground.menu.app/api/"
+//private const val BASE_URL = "https://api-playground.menu.app/api/"
+private const val BASE_URL = MockWebServerManager.MOCK_WEB_SERVER_URL + MockWebServerManager.MOCK_WEB_SERVER_PORT
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -29,19 +31,19 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface NetworkApiService {
+internal interface NetworkApiService {
 
    /* @GET("photos")
     suspend fun getPhotos(): List<MarsPhoto>  */
 
-    @Headers(
+ /*   @Headers(
         "application: mobile-application",
         "Content-Type: application/json",
         "Device-UUID: 123456",
         "Api-Version: 3.7.0"
     )
     @POST("customers/login")
-    suspend fun executeLogin(@Body loginRequest: LoginRequest): Response<ResponseBody>
+    suspend fun executeLogin(@Body loginRequest: LoginRequest): Response<ResponseBody>*/
 
     /*suspend fun login(username: String, password: String): Response<ResponseBody> {
         val jsonObject = JSONObject()
@@ -59,9 +61,13 @@ interface NetworkApiService {
     )
     @POST("directory/search")
     suspend fun getVenues(): List<Venue>
+
+    @POST("/api/customers/login")
+    suspend fun executeLogin(@Body loginRequest: LoginRequest): Response<ResponseBody>
+
 }
 
-object NetworkApi {
+internal object NetworkApi {
     val retrofitService : NetworkApiService by lazy {
         retrofit.create(NetworkApiService::class.java)
     }

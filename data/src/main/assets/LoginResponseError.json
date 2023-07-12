@@ -1,0 +1,5 @@
+{
+  "status":500,
+  "error": "Incorrect username and password",
+  "message": "Ensure that the username and password included in the request are correct"
+}
