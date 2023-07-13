@@ -31,6 +31,9 @@
     <color name="venue_details">#FF000000</color>
     <color name="logout_btn_text">#FF000000</color>
     <color name="logout_btn_background">#FFFFFFFF</color>
+    <color name="is_not_open_bg">#CDCDCD</color>
+    <color name="is_open_bg">#f2613d</color>
+    <color name="is_open_text">#FFFFFFFF</color>
 
     <!-- Snackbar message colors -->
     <color name="snackbar_text">#FFFFFFFF</color>

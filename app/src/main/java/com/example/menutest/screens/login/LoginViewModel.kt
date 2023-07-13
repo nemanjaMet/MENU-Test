@@ -15,18 +15,18 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-    private val signInStatus: MutableLiveData<SignInStatus> = MutableLiveData(SignInStatus.IDLE)
+    private val _signInStatus: MutableLiveData<SignInStatus> = MutableLiveData(SignInStatus.IDLE)
+    val signInStatus get() = _signInStatus
+    private val _isTokenSavedState: MutableLiveData<Boolean> = MutableLiveData()
+    val isTokenSavedState get() = _isTokenSavedState
 
-    fun getSignInStatus(): MutableLiveData<SignInStatus> {
-        return signInStatus
-    }
 
     fun setSignInStatusIdle() {
-        signInStatus.value = SignInStatus.IDLE
+        _signInStatus.value = SignInStatus.IDLE
     }
 
     fun signIn(email: String, password: String) {
-        signInStatus.value = SignInStatus.IN_PROGRESS
+        _signInStatus.value = SignInStatus.IN_PROGRESS
 
         viewModelScope.launch {
             // delay to fake loading
@@ -42,19 +42,19 @@ class LoginViewModel : ViewModel() {
                     ResponseStatus.SUCCESS -> {
                         val statusSuccess = SignInStatus.SUCCESS
                         statusSuccess.msg = response.data
-                        signInStatus.value = statusSuccess
+                        _signInStatus.value = statusSuccess
                     }
 
                     ResponseStatus.ERROR -> {
                         val statusError = SignInStatus.FAILED
                         statusError.msg = response.error ?: "Some error occurred"
-                        signInStatus.value = statusError
+                        _signInStatus.value = statusError
                     }
 
                     else -> {
                         val statusError = SignInStatus.FAILED
                         statusError.msg = "Some error occurred"
-                        signInStatus.value = statusError
+                        _signInStatus.value = statusError
                     }
 
                 }
@@ -62,7 +62,7 @@ class LoginViewModel : ViewModel() {
             } else {
                 val statusError = SignInStatus.FAILED
                 statusError.msg = "You have entered an invalid username or password"
-                signInStatus.value = SignInStatus.FAILED
+                _signInStatus.value = SignInStatus.FAILED
             }
 
         }
@@ -81,12 +81,19 @@ class LoginViewModel : ViewModel() {
 
     fun saveToken(context: Context, token: String) {
         val preferenceManager = PreferenceManager(context)
-        preferenceManager.setStringValue(Constants.PreferenceName.LOGIN_TOKEN, token)
+        preferenceManager.setStringValue(Constants.PreferenceName.ACCESS_TOKEN, token)
     }
 
-    fun isTokenSaved(context: Context): Boolean {
+   /* fun isTokenSaved(context: Context): Boolean {
         val preferenceManager = PreferenceManager(context)
-        return preferenceManager.containsKey(Constants.PreferenceName.LOGIN_TOKEN)
+        return preferenceManager.containsKey(Constants.PreferenceName.ACCESS_TOKEN)
+    }*/
+
+    fun checkIsTokenSaved(context: Context) {
+        val preferenceManager = PreferenceManager(context)
+        val isTokenSaved = preferenceManager.containsKey(Constants.PreferenceName.ACCESS_TOKEN)
+
+        _isTokenSavedState.value = isTokenSaved
     }
 
 }

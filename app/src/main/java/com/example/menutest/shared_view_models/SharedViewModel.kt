@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 class SharedViewModel : ViewModel() {
 
     init {
-        autoHideSplash()
+        //autoHideSplash()
     }
 
     var isSplashVisible: MutableLiveData<Boolean> = MutableLiveData(true)

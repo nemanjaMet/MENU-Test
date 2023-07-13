@@ -1,11 +1,14 @@
 package com.example.network
 
+import android.app.Activity
 import com.example.data.LoginRequest
 import com.example.data.Venue
+import com.example.data.VenueTest
 import com.example.server.MockWebServerManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Call
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -18,6 +21,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Url
+import java.util.concurrent.TimeUnit
 
 //private const val BASE_URL = "https://api-playground.menu.app/api/"
 private const val BASE_URL = MockWebServerManager.MOCK_WEB_SERVER_URL + MockWebServerManager.MOCK_WEB_SERVER_PORT
@@ -26,15 +30,18 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-private val retrofit = Retrofit.Builder()
+private var httpClientBuilder = OkHttpClient.Builder()
+    .connectTimeout(30, TimeUnit.SECONDS).
+    readTimeout(30, TimeUnit.SECONDS)
+
+
+private var retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .client(httpClientBuilder.build())
     .baseUrl(BASE_URL)
     .build()
 
 internal interface NetworkApiService {
-
-   /* @GET("photos")
-    suspend fun getPhotos(): List<MarsPhoto>  */
 
  /*   @Headers(
         "application: mobile-application",
@@ -53,21 +60,38 @@ internal interface NetworkApiService {
         return executeLogin(jsonObject.toString())
     }*/
 
-    @Headers(
+  /*  @Headers(
         "application: mobile-application",
         "Content-Type: application/json",
         "Device-UUID: 123456",
         "Api-Version: 3.7.0"
     )
     @POST("directory/search")
-    suspend fun getVenues(): List<Venue>
+    suspend fun getVenues(): List<Venue>*/
 
     @POST("/api/customers/login")
     suspend fun executeLogin(@Body loginRequest: LoginRequest): Response<ResponseBody>
 
+    @POST("/api/directory/search")
+    suspend fun getVenues(): Response<ResponseBody> //List<VenueTest>
+
 }
 
 internal object NetworkApi {
+
+    fun createRetrofitWithInterceptor(activity: Activity) {
+        httpClientBuilder = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS).
+            readTimeout(30, TimeUnit.SECONDS).
+            addInterceptor(NetworkConnectionInterceptor(activity))
+
+        retrofit = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(httpClientBuilder.build())
+            .baseUrl(BASE_URL)
+            .build()
+    }
+
     val retrofitService : NetworkApiService by lazy {
         retrofit.create(NetworkApiService::class.java)
     }

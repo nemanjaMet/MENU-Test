@@ -8,4 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+
+
+    <include layout="@layout/try_again_layout" android:id="@+id/try_again_layout"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,5 +7,6 @@ data class VenueTest(
     val workingTime: String,
     val isWorking: Boolean,
     val welcomeMessage: String,
-    val description: String
+    val description: String,
+    val images: Images
 )

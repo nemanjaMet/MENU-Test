@@ -1,12 +1,19 @@
 package com.example.menutest.screens.details
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.menutest.R
 import com.example.menutest.databinding.FragmentDetailsBinding
 import com.example.menutest.screens.MasterScreenFragment
@@ -14,6 +21,7 @@ import com.example.view_model.DataViewModel
 
 class DetailsScreenFragment : MasterScreenFragment() {
 
+    //private val imageUrl = "https://uccaa9b49136deec87ffe77b45f6.previews.dropboxusercontent.com/p/thumb/AB9RzMQwI7ak_WJnp0RfDusVbEx0Jj-HrVaVT_kiFXLXkfFePmYCKQJ5IxmTVZn9d9dQNlAbscfg6145sxk2HsK_Piv6WKs_9TiVoMz795-uJZYk4lYF3CNh_FhVnMWxsL0jflovy4Hkk_zTJySZ2HqOV0k8LHGlS6uKNJTsP8OkIkb66wpOAbIKmmcP6t5dlM9czrNYmQSUt3TFJndH1IYLCLRiv8V4adX00tnCf0xpYB-PpqX-S6u-5kXZ5YpDsgq0QzGoy3vGiikdNRXbOpSRInl9BkioE4iCh8gePJOt55BVKLXnPTVxb5zHbUosyr42aHirfqeVcqf0Gj2VQvPwneXNI6OBjyIE6hSlJZ17m8-KE_C2PxiMFnpRWWsd7W0/p.jpeg"
     private var venuePosition = -1
 
     companion object {
@@ -45,6 +53,7 @@ class DetailsScreenFragment : MasterScreenFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setViewModelObservers()
         populateView()
         setOnClickListener()
     }
@@ -53,10 +62,46 @@ class DetailsScreenFragment : MasterScreenFragment() {
         binding?.apply {
             val venue = dataViewModel.getVenue(venuePosition)
 
-            tvName.text = venue.title
-            tvWelcomeMessage.text = venue.welcomeMessage
-            tvDescription.text = venue.description
-            tvWorkingTime.text = venue.workingTime
+            venue?.let {
+                tvName.text = it.title
+                tvWelcomeMessage.text = it.welcomeMessage
+                tvDescription.text = it.description
+                tvWorkingTime.text = it.workingTime
+
+                if (venue.isWorking) {
+                    tvIsOpen.text = getString(R.string.open)
+                    tvIsOpen.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.is_open_bg))
+                } else {
+                    tvIsOpen.text = getString(R.string.currently_closed)
+                    tvIsOpen.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.is_not_open_bg))
+                }
+
+                Glide.with(requireActivity()).load(venue.images.thumbnail).centerCrop().placeholder(R.drawable.empty_image).error(R.drawable.hero_image).listener(object:
+                    RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        viewModel.isDataLoading.value = false
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        viewModel.isDataLoading.value = false
+                        return false
+                    }
+
+                }).into(ivThumbnail)
+            }
+
         }
     }
 
@@ -65,14 +110,39 @@ class DetailsScreenFragment : MasterScreenFragment() {
             btnLogout.setOnClickListener {
                 it.setOnClickListener(null)
                 viewModel.logout(requireContext())
-                // TODO: Implement in correct way
-                //backToLoginScreen()
+                backToLoginScreen()
             }
         }
     }
 
     private fun backToLoginScreen() {
-        findNavController().popBackStack(R.id.loginScreenFragment, false)
+        findNavController().navigate(R.id.action_detailsScreenFragment_to_loginScreenFragment)
+    }
+
+    private fun setViewModelObservers() {
+        viewModel.isDataLoading.observe(viewLifecycleOwner) {
+
+            it?.let { isLoading ->
+
+                if (isLoading) {
+                    binding?.apply {
+                        clContentHolder.visibility = View.INVISIBLE
+                        btnLogout.visibility = View.INVISIBLE
+                    }
+                    showProgressBar()
+                } else {
+                    hideProgressBar()
+                    binding?.apply {
+                        clContentHolder.visibility = View.VISIBLE
+                        btnLogout.visibility = View.VISIBLE
+                    }
+                    viewModel.isDataLoading.value = null
+                }
+
+            }
+
+        }
+
     }
 
 }

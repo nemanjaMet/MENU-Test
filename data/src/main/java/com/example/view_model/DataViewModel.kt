@@ -1,79 +1,56 @@
 package com.example.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
-import com.example.data.LoginRequest
+import com.example.controller.DataController
+import com.example.data.ResponseStatus
 import com.example.data.VenueTest
-import com.example.network.NetworkApi
-import com.example.network.NetworkApiService
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import java.util.Calendar
-import kotlin.random.Random
+import java.util.Collections
 
 class DataViewModel : ViewModel() {
 
-    private var listOfVenues: ArrayList<VenueTest>
-    private var loginToken: MutableLiveData<String> = MutableLiveData()
+    private val _listOfVenues: MutableLiveData<ArrayList<VenueTest>> = MutableLiveData()
+    val listOfVenues get() = _listOfVenues
+    private val _dataResponseStatus: MutableLiveData<DataResponseStatus> = MutableLiveData()
+    val dataResponseStatus get() = _dataResponseStatus
 
-    init {
-        listOfVenues = createListOfVenues()
-    }
 
-    private fun createListOfVenues(): ArrayList<VenueTest> {
-        val listOfVenues = arrayListOf<VenueTest>()
+    fun setListOfVenues() {
 
-        fun roundTheNumber(numInDouble: Float): String {
-
-            return "%.2f".format(numInDouble)
-
-        }
-
-        for (i in 0..49) {
-
-            val distance = Random.nextInt(1,2000)
-            val distanceText = if (distance >= 1000) "${roundTheNumber(distance / 1000f)}km" else "${distance}m"
-            val startWorkingTime = Random.nextInt(6,20)
-            val endWorkingTime = Random.nextInt(startWorkingTime + 1,24)
-            val workingTimeText = "${if (startWorkingTime < 10) "0$startWorkingTime" else "$startWorkingTime"}:00 - ${if (endWorkingTime == 24) "00" else "$endWorkingTime" }:00"
-
-            val currentHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            Log.d("currentHoursTest", "currentHours: $currentHours")
-
-            val venue = VenueTest(
-                "Ocean Drive Miami",
-                distanceText,
-                "12 Belgard Road, Tallaght, Miami",
-                workingTimeText,
-                currentHours in startWorkingTime until endWorkingTime,
-                "Welcome to Poke Bar",
-                "Poke Bar makes it easy to customize your bowl with endless toppings, proteins, mix-in and more."
-            )
-
-            listOfVenues.add(venue)
-
-        }
-
-        return listOfVenues
-    }
-
-    fun getListOfVenues(): ArrayList<VenueTest> {
-        return listOfVenues
-    }
-
-    fun getVenue(position: Int): VenueTest {
-        return listOfVenues[position]
-    }
-
-   /* fun login(loginRequest: LoginRequest) {
+        _dataResponseStatus.value = DataResponseStatus.IN_PROGRESS
 
         viewModelScope.launch {
-            val response = NetworkApi.retrofitService.executeLogin().body()
-            val test = 0
+            val response = DataController().getListOfVenues()
+
+            when (response.status) {
+                ResponseStatus.SUCCESS -> {
+                    _listOfVenues.postValue(Gson().fromJson(response.data, Array<VenueTest>::class.java).toCollection(ArrayList()))
+                    _dataResponseStatus.postValue(DataResponseStatus.SUCCESS)
+                }
+                ResponseStatus.CONNECTION_ERROR -> {
+                    _dataResponseStatus.postValue(DataResponseStatus.CONNECTION_ERROR)
+                }
+                else -> {
+                    _dataResponseStatus.postValue(DataResponseStatus.UNKNOWN_ERROR)
+                }
+            }
+
         }
 
-    }*/
+    }
 
+    fun getVenue(position: Int): VenueTest? {
+        return listOfVenues.value?.get(position)
+    }
+
+}
+
+enum class DataResponseStatus {
+    IN_PROGRESS,
+    SUCCESS,
+    UNKNOWN_ERROR,
+    CONNECTION_ERROR
 }

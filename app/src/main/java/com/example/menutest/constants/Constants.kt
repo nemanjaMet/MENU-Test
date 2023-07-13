@@ -7,7 +7,8 @@ class Constants {
     }
 
     object PreferenceName {
-        const val LOGIN_TOKEN = "LOGIN_TOKEN"
+        const val ACCESS_TOKEN = "ACCESS_TOKEN"
     }
+
 
 }

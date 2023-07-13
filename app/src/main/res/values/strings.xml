@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Menu Test</string>
 
+    <string name="no_internet_conn_error">No internet connection error</string>
+    <string name="connection_error">Connection error</string>
+    <string name="try_again">Try again</string>
+
     <!-- Login screen -->
     <string name="login_title_big">The easiest way to order</string>
     <string name="login_title_small">No lines. No waiting.</string>
@@ -12,5 +16,7 @@
 
     <!-- Details screen -->
     <string name="logout">Logout</string>
+    <string name="open">Open</string>
+    <string name="currently_closed">Currently closed</string>
 
 </resources>
