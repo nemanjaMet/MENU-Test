@@ -81,12 +81,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    // ViewModel and LiveData
-  /*  def viewmodel_livedata_version = "2.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewmodel_livedata_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_livedata_version"
-    implementation 'android.arch.lifecycle:extensions:1.1.1'*/
-
     // Navigation
     def nav_version = "2.6.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -105,5 +99,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    // scalable size unit
+    //implementation 'com.intuit.sdp:sdp-android:1.1.0'
+
+    //scalable size unit for texts
+    //implementation 'com.intuit.ssp:ssp-android:1.1.0'
 
 }

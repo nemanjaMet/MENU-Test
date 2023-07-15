@@ -16,6 +16,8 @@ import com.example.view_model.DataViewModel
 
 class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAdapterInterface {
 
+    private var lastOpenVenuePosition = 0
+
     companion object {
         private const val LOG_TAG = "VenuesListScreenFragment"
     }
@@ -23,7 +25,6 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     private var _binding: FragmentVenuesListBinding? = null
     private val binding get() = _binding
 
-    //val sharedViewModel: SharedViewModel by activityViewModels()
     private val dataViewModel: DataViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,6 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //showProgressBar()
         setOnClickListener()
         setViewModelObservers()
     }
@@ -64,6 +64,8 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
         binding?.apply {
             rvVenuesList.adapter = venuesAdapter
             rvVenuesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            rvVenuesList.scrollToPosition(lastOpenVenuePosition)
         }
 
     }
@@ -71,7 +73,6 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     private fun setViewModelObservers() {
         dataViewModel.listOfVenues.observe(viewLifecycleOwner) { listOfVenues ->
             listOfVenues?.let { setVenuesList(it) }
-            //hideProgressBar()
         }
 
         dataViewModel.dataResponseStatus.observe(viewLifecycleOwner) {
@@ -103,6 +104,7 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
 
     override fun onVenueClick(position: Int) {
 
+        lastOpenVenuePosition = position
         openDetailsScreen(position)
 
     }

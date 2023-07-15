@@ -27,10 +27,6 @@ class LoginScreenFragment : MasterScreenFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if (viewModel.isTokenSaved(requireContext())) {
-//            openVenuesListScreen()
-//        }
-
         viewModel.checkIsTokenSaved(requireContext())
     }
 
@@ -80,7 +76,7 @@ class LoginScreenFragment : MasterScreenFragment() {
                 }
 
                 SignInStatus.FAILED -> {
-                    val errorMsg = status.msg
+                    val errorMsg = viewModel.getErrorMessage(requireContext(), status.msg, status.errorCode)
                     viewModel.setSignInStatusIdle()
                     setOnClickListener()
                     showSnackbarError(errorMsg)

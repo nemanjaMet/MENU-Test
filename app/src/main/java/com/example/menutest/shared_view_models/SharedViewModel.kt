@@ -8,9 +8,9 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
 
-    init {
-        //autoHideSplash()
-    }
+   /* init {
+        autoHideSplash()
+    }*/
 
     var isSplashVisible: MutableLiveData<Boolean> = MutableLiveData(true)
 
@@ -19,11 +19,11 @@ class SharedViewModel : ViewModel() {
             isSplashVisible.postValue(false)
     }
 
-    private fun autoHideSplash() {
+   /* private fun autoHideSplash() {
         viewModelScope.launch {
             delay(2000)
             hideSplashScreen()
         }
-    }
+    }*/
 
 }

@@ -109,6 +109,7 @@ class DetailsScreenFragment : MasterScreenFragment() {
         binding?.apply {
             btnLogout.setOnClickListener {
                 it.setOnClickListener(null)
+                dataViewModel.clearData()
                 viewModel.logout(requireContext())
                 backToLoginScreen()
             }

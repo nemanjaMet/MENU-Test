@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Menu Test</string>
 
+    <string name="invalid_username_or_password">You have entered an invalid username or password</string>
     <string name="no_internet_conn_error">No internet connection error</string>
     <string name="connection_error">Connection error</string>
     <string name="try_again">Try again</string>
+    <string name="unknown_error">Some error occurred</string>
 
     <!-- Login screen -->
     <string name="login_title_big">The easiest way to order</string>
@@ -11,6 +13,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
+
 
     <string name="closed">Closed</string>
 

@@ -50,7 +50,7 @@
 
         <!-- Edit text underline color -->
         <item name="android:backgroundTint">@color/transparent</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
 
     </style>
 

@@ -44,7 +44,13 @@ class DataController {
                 DataResponse(status = ResponseStatus.ERROR, error = error, errorDetails = message)
             }
 
-        } catch (ex: Exception) {
+        }
+        catch (ex: ConnectException) {
+            Log.e(LOG_TAG, ex.message, ex)
+
+            return DataResponse(ResponseStatus.CONNECTION_ERROR)
+        }
+        catch (ex: Exception) {
             Log.e(LOG_TAG, ex.message, ex)
             return DataResponse(status = ResponseStatus.ERROR)
         }

@@ -4,10 +4,10 @@
     <solid android:color="@color/logout_btn_background" />
 
     <padding
-        android:left="1dp"
-        android:right="1dp"
-        android:bottom="1dp"
-        android:top="1dp" />
+        android:left="@dimen/dimen_size_1dp"
+        android:right="@dimen/dimen_size_1dp"
+        android:bottom="@dimen/dimen_size_1dp"
+        android:top="@dimen/dimen_size_1dp" />
 
-    <corners android:radius="24dp" />
+    <corners android:radius="@dimen/dimen_size_25dp" />
 </shape>

@@ -19,9 +19,9 @@
         android:textColor="@color/login_btn_text"
         android:text="@string/try_again"
         android:textAllCaps="false"
-        android:padding="5dp"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp"/>
+        android:padding="@dimen/dimen_size_5dp"
+        android:textSize="@dimen/text_size_big"
+        android:layout_marginBottom="@dimen/dimen_size_20dp"/>
 
     <TextView
         android:id="@+id/tv_error"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/no_internet_conn_error"
         android:textStyle="normal"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/title_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

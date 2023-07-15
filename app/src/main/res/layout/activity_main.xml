@@ -27,8 +27,8 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/dimen_size_80dp"
+            android:layout_height="@dimen/dimen_size_80dp"
             android:indeterminate="true"
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="@color/login_btn_background"

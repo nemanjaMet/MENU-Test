@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.controller.DataController
 import com.example.data.LoginRequest
 import com.example.data.ResponseStatus
+import com.example.menutest.R
 import com.example.menutest.constants.Constants
 import com.example.menutest.helpers.PreferenceManager
 import com.example.menutest.models.SignInStatus
@@ -29,8 +30,8 @@ class LoginViewModel : ViewModel() {
         _signInStatus.value = SignInStatus.IN_PROGRESS
 
         viewModelScope.launch {
-            // delay to fake loading
-            delay(1000)
+            // delay to fake loading ;; it was left on purpose
+            delay(500)
 
             // checking is email and password correct
             if (isEmailCorrect(email) && isPasswordCorrect(password)) {
@@ -47,13 +48,19 @@ class LoginViewModel : ViewModel() {
 
                     ResponseStatus.ERROR -> {
                         val statusError = SignInStatus.FAILED
-                        statusError.msg = response.error ?: "Some error occurred"
+                        statusError.msg = response.error ?: ""
+                        _signInStatus.value = statusError
+                    }
+
+                    ResponseStatus.CONNECTION_ERROR -> {
+                        val statusError = SignInStatus.FAILED
+                        statusError.errorCode = Constants.ErrorCode.NO_INTERNET_CONNECTION
+                        statusError.msg = response.error ?: ""
                         _signInStatus.value = statusError
                     }
 
                     else -> {
                         val statusError = SignInStatus.FAILED
-                        statusError.msg = "Some error occurred"
                         _signInStatus.value = statusError
                     }
 
@@ -61,7 +68,7 @@ class LoginViewModel : ViewModel() {
 
             } else {
                 val statusError = SignInStatus.FAILED
-                statusError.msg = "You have entered an invalid username or password"
+                statusError.errorCode = Constants.ErrorCode.INVALID_CREDENTIALS
                 _signInStatus.value = SignInStatus.FAILED
             }
 
@@ -84,16 +91,30 @@ class LoginViewModel : ViewModel() {
         preferenceManager.setStringValue(Constants.PreferenceName.ACCESS_TOKEN, token)
     }
 
-   /* fun isTokenSaved(context: Context): Boolean {
-        val preferenceManager = PreferenceManager(context)
-        return preferenceManager.containsKey(Constants.PreferenceName.ACCESS_TOKEN)
-    }*/
-
     fun checkIsTokenSaved(context: Context) {
         val preferenceManager = PreferenceManager(context)
         val isTokenSaved = preferenceManager.containsKey(Constants.PreferenceName.ACCESS_TOKEN)
 
         _isTokenSavedState.value = isTokenSaved
+    }
+
+    fun getErrorMessage(context: Context, errorMsg: String, errorCode: Int): String {
+
+        return when (errorCode) {
+            Constants.ErrorCode.NO_INTERNET_CONNECTION -> {
+                context.resources.getString(R.string.no_internet_conn_error)
+            }
+            Constants.ErrorCode.INVALID_CREDENTIALS -> {
+                context.resources.getString(R.string.invalid_username_or_password)
+            }
+
+            else -> {
+
+                errorMsg.ifEmpty { context.resources.getString(R.string.unknown_error) }
+
+            }
+        }
+
     }
 
 }

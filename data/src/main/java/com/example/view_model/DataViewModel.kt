@@ -7,8 +7,8 @@ import com.example.controller.DataController
 import com.example.data.ResponseStatus
 import com.example.data.VenueTest
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Collections
 
 class DataViewModel : ViewModel() {
 
@@ -23,6 +23,9 @@ class DataViewModel : ViewModel() {
         _dataResponseStatus.value = DataResponseStatus.IN_PROGRESS
 
         viewModelScope.launch {
+            // delay to fake loading ;; it was left on purpose
+            delay(500)
+
             val response = DataController().getListOfVenues()
 
             when (response.status) {
@@ -40,6 +43,11 @@ class DataViewModel : ViewModel() {
 
         }
 
+    }
+
+    fun clearData() {
+        listOfVenues.value = null
+        dataResponseStatus.value = null
     }
 
     fun getVenue(position: Int): VenueTest? {

@@ -65,15 +65,15 @@ object MockDataHelper {
 
         val listOfUrls = arrayListOf<String>()
 
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
-        listOfUrls.add("")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%201.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%202.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%203.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%204.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%205.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%206.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%207.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%208.webp")
+        listOfUrls.add("https://raw.githubusercontent.com/nemanjaMet/MENU-Test/master/images/Image%209.webp")
 
         return listOfUrls
 

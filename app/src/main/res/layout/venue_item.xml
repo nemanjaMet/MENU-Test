@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:layout_marginStart="@dimen/dimen_size_20dp"
+    android:layout_marginEnd="@dimen/dimen_size_20dp"
+    android:paddingTop="@dimen/dimen_size_10dp"
+    android:paddingBottom="@dimen/dimen_size_10dp"
     android:id="@+id/cl_venue_item_holder"
     android:background="@drawable/bottom_divider">
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_big"
         android:textStyle="bold"
         android:textAlignment="textStart"
         android:textColor="@color/venue_item_text"/>
@@ -25,26 +25,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_medium"
         android:textStyle="bold"
         android:textAlignment="textStart"
-        android:textColor="@color/venue_item_text"/>
+        android:textColor="@color/venue_item_text"
+        android:layout_marginTop="@dimen/dimen_size_3dp"/>
 
     <TextView
         android:id="@+id/tv_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_distance"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_medium"
         android:textAlignment="textStart"
-        android:textColor="@color/venue_item_text"/>
+        android:textColor="@color/venue_item_text"
+        android:layout_marginTop="@dimen/dimen_size_3dp"/>
     
     <TextView
         android:id="@+id/tv_working_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_location"
-        android:textSize="12sp"
-        android:textColor="@color/venue_item_text"/>
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@color/venue_item_text"
+        android:layout_marginTop="@dimen/dimen_size_3dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
