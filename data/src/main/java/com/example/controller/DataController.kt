@@ -5,7 +5,6 @@ import android.util.Log
 import com.example.data.DataResponse
 import com.example.data.LoginRequest
 import com.example.data.ResponseStatus
-import com.example.data.VenueTest
 import com.example.network.NetworkApi
 import org.json.JSONObject
 import java.net.ConnectException
@@ -27,14 +26,14 @@ class DataController {
 
             val responseCode = response.code()
 
-            return if (responseCode == 200) {
+            return if (responseCode == 200) { // response success
                 val responseJson = String(response.body()!!.byteStream().readBytes())
                 val bodyResponseObject = JSONObject(responseJson)
 
                 val accessToken = bodyResponseObject.getString("access_token")
 
                 DataResponse(status = ResponseStatus.SUCCESS, data = accessToken)
-            } else {
+            } else { // response is not success
                 val responseJson = String(response.errorBody()!!.byteStream().readBytes())
                 val bodyResponseObject = JSONObject(responseJson)
 

@@ -42,7 +42,6 @@ class LoginScreenFragment : MasterScreenFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setOnClickListener()
         setViewModelObservers()
     }
@@ -71,10 +70,12 @@ class LoginScreenFragment : MasterScreenFragment() {
 
             when (status) {
 
+                // sign in process started
                 SignInStatus.IN_PROGRESS -> {
                     showProgressBar()
                 }
 
+                // sign in is not success
                 SignInStatus.FAILED -> {
                     val errorMsg = viewModel.getErrorMessage(requireContext(), status.msg, status.errorCode)
                     viewModel.setSignInStatusIdle()
@@ -82,6 +83,7 @@ class LoginScreenFragment : MasterScreenFragment() {
                     showSnackbarError(errorMsg)
                 }
 
+                // sign in is success
                 SignInStatus.SUCCESS -> {
                     viewModel.saveToken(requireContext(), status.msg)
                     viewModel.setSignInStatusIdle()
@@ -101,6 +103,7 @@ class LoginScreenFragment : MasterScreenFragment() {
 
             isTokenSaved?.let { isSaved ->
 
+                // if token is saved than open venues list fragment
                 if (isSaved) {
                     openVenuesListScreen()
                 }
@@ -124,6 +127,7 @@ class LoginScreenFragment : MasterScreenFragment() {
         }
     }
 
+    // on back pressed exit from app
     override fun onBackPressed() {
         activity?.finish()
     }

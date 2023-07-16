@@ -21,7 +21,6 @@ import com.example.view_model.DataViewModel
 
 class DetailsScreenFragment : MasterScreenFragment() {
 
-    //private val imageUrl = "https://uccaa9b49136deec87ffe77b45f6.previews.dropboxusercontent.com/p/thumb/AB9RzMQwI7ak_WJnp0RfDusVbEx0Jj-HrVaVT_kiFXLXkfFePmYCKQJ5IxmTVZn9d9dQNlAbscfg6145sxk2HsK_Piv6WKs_9TiVoMz795-uJZYk4lYF3CNh_FhVnMWxsL0jflovy4Hkk_zTJySZ2HqOV0k8LHGlS6uKNJTsP8OkIkb66wpOAbIKmmcP6t5dlM9czrNYmQSUt3TFJndH1IYLCLRiv8V4adX00tnCf0xpYB-PpqX-S6u-5kXZ5YpDsgq0QzGoy3vGiikdNRXbOpSRInl9BkioE4iCh8gePJOt55BVKLXnPTVxb5zHbUosyr42aHirfqeVcqf0Gj2VQvPwneXNI6OBjyIE6hSlJZ17m8-KE_C2PxiMFnpRWWsd7W0/p.jpeg"
     private var venuePosition = -1
 
     companion object {
@@ -54,11 +53,11 @@ class DetailsScreenFragment : MasterScreenFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setViewModelObservers()
-        populateView()
+        populateViewWithData()
         setOnClickListener()
     }
 
-    private fun populateView() {
+    private fun populateViewWithData() {
         binding?.apply {
             val venue = dataViewModel.getVenue(venuePosition)
 

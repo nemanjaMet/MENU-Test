@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.VenueTest
+import com.example.data.Venue
 import com.example.menutest.R
 
-class VenuesAdapter(private val context: Context, private val venues: ArrayList<VenueTest>, private val listener: VenuesAdapterInterface? = null) : RecyclerView.Adapter<VenuesAdapter.VenuesViewHolder>() {
+class VenuesAdapter(private val context: Context, private val venues: ArrayList<Venue>, private val listener: VenuesAdapterInterface? = null) : RecyclerView.Adapter<VenuesAdapter.VenuesViewHolder>() {
+
+    private var isItemClicked = false
 
     interface VenuesAdapterInterface {
         fun onVenueClick(position: Int)
@@ -31,6 +32,7 @@ class VenuesAdapter(private val context: Context, private val venues: ArrayList<
 
         holder.apply {
 
+            // populate item
             tvTitle.text = venue.title
             tvDistance.text = venue.distance
             tvLocation.text = venue.location
@@ -44,9 +46,13 @@ class VenuesAdapter(private val context: Context, private val venues: ArrayList<
                 clHolder.alpha = 0.3f
             }
 
+            // setOnClickListener
             clHolder.setOnClickListener {
-                it.setOnClickListener(null)
-                listener?.onVenueClick(position)
+                if (!isItemClicked) {
+                    isItemClicked = true
+                    //it.setOnClickListener(null)
+                    listener?.onVenueClick(position)
+                }
             }
 
         }

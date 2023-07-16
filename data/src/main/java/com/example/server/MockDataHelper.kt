@@ -1,7 +1,7 @@
 package com.example.server
 
 import com.example.data.Images
-import com.example.data.VenueTest
+import com.example.data.Venue
 import com.google.gson.Gson
 import java.util.Calendar
 import kotlin.random.Random
@@ -15,8 +15,8 @@ object MockDataHelper {
     }
 
 
-    private fun createListOfVenues(): ArrayList<VenueTest> {
-        val listOfVenues = arrayListOf<VenueTest>()
+    private fun createListOfVenues(): ArrayList<Venue> {
+        val listOfVenues = arrayListOf<Venue>()
         val imageUrls = getImageUrls()
 
         val name = "Ocean Drive Miami"
@@ -39,7 +39,7 @@ object MockDataHelper {
             val currentHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             //Log.d("currentHoursTest", "currentHours: $currentHours")
 
-            val venue = VenueTest(
+            val venue = Venue(
                 "$name ${i + 1}",
                 distanceText,
                 "${i + 1} $location",

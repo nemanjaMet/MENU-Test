@@ -1,8 +1,17 @@
 package com.example.data
 
-import com.squareup.moshi.Json
-
 data class Venue(
+    val title: String,
+    val distance: String,
+    val location: String,
+    val workingTime: String,
+    val isWorking: Boolean,
+    val welcomeMessage: String,
+    val description: String,
+    val images: Images
+)
+
+/*data class Venue(
     @Json(name = "name")
     val name: String,
     @Json(name = "description")
@@ -13,4 +22,4 @@ data class Venue(
     val welcomeMessage: String,
     @Json(name = "images")
     val images: Images
-)
+)*/

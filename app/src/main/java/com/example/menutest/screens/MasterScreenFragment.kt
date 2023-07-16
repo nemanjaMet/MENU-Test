@@ -24,12 +24,10 @@ open class MasterScreenFragment : Fragment() {
     }
 
     fun showSnackbarMessage(msg: String) {
-
         val snackbar = Snackbar.make(requireActivity().findViewById(R.id.cl_parent_holder), msg, Snackbar.LENGTH_SHORT)
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.snackbar_bg))
         snackbar.setTextColor(ContextCompat.getColor(requireContext(), R.color.snackbar_text))
         snackbar.show()
-
     }
 
     fun showSnackbarError(msg: String) {

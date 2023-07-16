@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.data.VenueTest
+import com.example.data.Venue
 import com.example.menutest.adapters.VenuesAdapter
 import com.example.menutest.databinding.FragmentVenuesListBinding
 import com.example.menutest.screens.MasterScreenFragment
@@ -58,23 +58,27 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
         }
     }
 
-    private fun setVenuesList(listOfVenues: ArrayList<VenueTest>) {
+    private fun setVenuesList(listOfVenues: ArrayList<Venue>) {
         val venuesAdapter = VenuesAdapter(requireContext(), listOfVenues, this)
 
         binding?.apply {
             rvVenuesList.adapter = venuesAdapter
             rvVenuesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+            // scroll to last open venue
             rvVenuesList.scrollToPosition(lastOpenVenuePosition)
         }
 
     }
 
     private fun setViewModelObservers() {
+        // observe venues data
         dataViewModel.listOfVenues.observe(viewLifecycleOwner) { listOfVenues ->
+            // if data is ready than set list
             listOfVenues?.let { setVenuesList(it) }
         }
 
+        // observe response status for venues data
         dataViewModel.dataResponseStatus.observe(viewLifecycleOwner) {
 
             it?.let { status ->
@@ -103,10 +107,8 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     }
 
     override fun onVenueClick(position: Int) {
-
         lastOpenVenuePosition = position
         openDetailsScreen(position)
-
     }
 
     private fun openDetailsScreen(position: Int) {
@@ -115,9 +117,7 @@ class VenuesListScreenFragment : MasterScreenFragment(), VenuesAdapter.VenuesAda
     }
 
     override fun onBackPressed() {
-
         activity?.finish()
-
     }
 
 }

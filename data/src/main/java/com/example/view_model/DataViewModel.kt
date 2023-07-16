@@ -5,18 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.controller.DataController
 import com.example.data.ResponseStatus
-import com.example.data.VenueTest
+import com.example.data.Venue
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DataViewModel : ViewModel() {
 
-    private val _listOfVenues: MutableLiveData<ArrayList<VenueTest>> = MutableLiveData()
+    private val _listOfVenues: MutableLiveData<ArrayList<Venue>> = MutableLiveData()
     val listOfVenues get() = _listOfVenues
     private val _dataResponseStatus: MutableLiveData<DataResponseStatus> = MutableLiveData()
     val dataResponseStatus get() = _dataResponseStatus
-
 
     fun setListOfVenues() {
 
@@ -30,7 +29,7 @@ class DataViewModel : ViewModel() {
 
             when (response.status) {
                 ResponseStatus.SUCCESS -> {
-                    _listOfVenues.postValue(Gson().fromJson(response.data, Array<VenueTest>::class.java).toCollection(ArrayList()))
+                    _listOfVenues.postValue(Gson().fromJson(response.data, Array<Venue>::class.java).toCollection(ArrayList()))
                     _dataResponseStatus.postValue(DataResponseStatus.SUCCESS)
                 }
                 ResponseStatus.CONNECTION_ERROR -> {
@@ -50,7 +49,7 @@ class DataViewModel : ViewModel() {
         dataResponseStatus.value = null
     }
 
-    fun getVenue(position: Int): VenueTest? {
+    fun getVenue(position: Int): Venue? {
         return listOfVenues.value?.get(position)
     }
 

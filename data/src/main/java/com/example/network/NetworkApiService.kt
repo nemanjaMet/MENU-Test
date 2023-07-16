@@ -1,29 +1,22 @@
 package com.example.network
 
 import android.app.Activity
+import androidx.annotation.VisibleForTesting
 import com.example.data.LoginRequest
-import com.example.data.Venue
-import com.example.data.VenueTest
 import com.example.server.MockWebServerManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.Call
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
-//private const val BASE_URL = "https://api-playground.menu.app/api/"
 private const val BASE_URL = MockWebServerManager.MOCK_WEB_SERVER_URL + MockWebServerManager.MOCK_WEB_SERVER_PORT
 
 private val moshi = Moshi.Builder()
@@ -33,7 +26,6 @@ private val moshi = Moshi.Builder()
 private var httpClientBuilder = OkHttpClient.Builder()
     .connectTimeout(30, TimeUnit.SECONDS).
     readTimeout(30, TimeUnit.SECONDS)
-
 
 private var retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -90,9 +82,20 @@ internal object NetworkApi {
             .client(httpClientBuilder.build())
             .baseUrl(BASE_URL)
             .build()
+
     }
 
     val retrofitService : NetworkApiService by lazy {
         retrofit.create(NetworkApiService::class.java)
+    }
+
+    @VisibleForTesting(5)
+    fun getRetrofit(): Retrofit {
+        return retrofit
+    }
+
+    @VisibleForTesting(5)
+    fun getBaseUrl(): String {
+        return BASE_URL
     }
 }
